@@ -32,7 +32,7 @@ impl fmt::Display for GrepIteration<'_> {
 impl<'a, 'b> Grep<'a> {
     pub fn new_str_search(needle: &'a str, haystack: &'a str) -> GrepResult<'a> {
         GrepResult::Ok(
-            Self { needle, haystack: &haystack[..], previous_line: 0 }
+            Self { needle, haystack: &haystack, previous_line: 0 }
         )
     }
     pub fn in_file_search(needle: &'a str, file_path: &'b str ) -> GrepResult<'a> {
@@ -40,8 +40,8 @@ impl<'a, 'b> Grep<'a> {
         Self::new_str_search(needle, haystack)
     }
     pub fn from_args(args: &'a Vec<String>) -> GrepResult<'a> {
-        let needle = &args.get(1).ok_or(GrepError::NotEnoughArguments)?[..];
-        let file_path = &args.get(2).ok_or(GrepError::NotEnoughArguments)?[..];
+        let needle = &args.get(1).ok_or(GrepError::NotEnoughArguments)?;
+        let file_path = &args.get(2).ok_or(GrepError::NotEnoughArguments)?;
         Self::in_file_search(needle, file_path)
     }
 }
